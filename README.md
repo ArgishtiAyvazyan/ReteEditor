@@ -1,4 +1,4 @@
-# vanilla-editor
+# Editor
 
 ## Project setup
 ```
