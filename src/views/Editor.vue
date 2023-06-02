@@ -7,9 +7,10 @@
             <b-button variant="outline-primary" @click="addNodes(20, 10)" class="mr-2">Add 600 nodes</b-button>
             <b-button variant="outline-primary" @click="addNodes(20, 10)" class="mr-2">Add 1200 nodes</b-button>
         </b-row>
-        <div class="editor-wrapper" ref="background">
+        <div class="rete" ref="rete"></div>
+        <!-- <div class="editor-wrapper" ref="background">
             <div id="rete"></div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -22,6 +23,10 @@ import { ConnectionPlugin, Presets as ConnectionPresets } from "rete-connection-
 import { DataflowEngine } from "rete-engine"
 import { ContextMenuPlugin, Presets as ContextMenuPresets } from "rete-context-menu-plugin"
 import { MinimapPlugin } from "rete-minimap-plugin";
+import {
+  ReroutePlugin,
+  RerouteExtensions,
+} from 'rete-connection-reroute-plugin';
 
 
 // import nodes
@@ -65,11 +70,12 @@ export default {
 
 
             this.editor = new NodeEditor();
-            this.area = new AreaPlugin(document.querySelector('#rete'));
+            this.area = new AreaPlugin(document.querySelector('.rete'));
             // const area = this.area
             const connection = new ConnectionPlugin();
             const vueRender = new VueRenderPlugin();
             const minimap = new MinimapPlugin();
+            const reroutePlugin = new ReroutePlugin();
 
             const contextMenu = new ContextMenuPlugin({
                 items: ContextMenuPresets.classic.setup([
@@ -88,20 +94,44 @@ export default {
                 // translateExtent: { width: 100000, height: 100000 },
             });
 
+            // this.editor.use(this.area)
+
             this.area.use(vueRender);
             this.area.use(connection);
             this.area.use(minimap)
 
-            vueRender.addPreset(VuePresets.classic.setup(this.area));
+            vueRender.use(reroutePlugin);
+
+            // vueRender.addPreset(VuePresets.classic.setup(this.area));
+            vueRender.addPreset(VuePresets.classic.setup());
+            vueRender.addPreset(VuePresets.contextMenu.setup());
+            vueRender.addPreset(VuePresets.minimap.setup());
+            vueRender.addPreset(
+                VuePresets.reroute.setup({
+                    contextMenu(id) {
+                        reroutePlugin.remove(id);
+                    },
+                    translate(id, dx, dy) {
+                        reroutePlugin.translate(id, dx, dy);
+                    },
+                    pointerdown(id) {
+                        reroutePlugin.unselect(id);
+                        reroutePlugin.select(id);
+                    },
+                })
+            );
             // vueRender.addPreset(VuePresets.contextMenu.setup())
 
 
             AreaExtensions.simpleNodesOrder(this.area);
-            AreaExtensions.showInputControl(this.area)
+            AreaExtensions.showInputControl(this.area);
 
-            AreaExtensions.selectableNodes(this.area, AreaExtensions.selector(), {
-                accumulating: AreaExtensions.accumulateOnCtrl(),
-            });
+            const selector = AreaExtensions.selector();
+            const accumulating = AreaExtensions.accumulateOnCtrl();
+
+            AreaExtensions.selectableNodes(this.area, selector, {accumulating});
+
+            RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
 
             const dataflow = new DataflowEngine();
             this.dataflow = dataflow
@@ -155,6 +185,7 @@ export default {
                     await this.editor.addConnection(new Connection(b, 'value', add, 'right'));
                 }
             }
+            await this.process();
         },
 
     },

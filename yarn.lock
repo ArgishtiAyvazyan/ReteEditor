@@ -947,17 +947,10 @@
   "resolved" "https://registry.npmjs.org/@babel/regjsgen/-/regjsgen-0.8.0.tgz"
   "version" "0.8.0"
 
-"@babel/runtime@^7.12.13", "@babel/runtime@^7.8.4":
-  "integrity" "sha512-gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.20.13.tgz"
-  "version" "7.20.13"
-  dependencies:
-    "regenerator-runtime" "^0.13.11"
-
-"@babel/runtime@^7.21.0":
-  "integrity" "sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.21.0.tgz"
-  "version" "7.21.0"
+"@babel/runtime@^7.12.13", "@babel/runtime@^7.21.0", "@babel/runtime@^7.8.4":
+  "integrity" "sha512-XsDuspWKLUsxwCp6r7EhsExHtYfbe5oAGQ19kqngTdCPUoPQzOPdUbD/pB9PJiwb2ptYKQDjSJT3R6dC+EPqfQ=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.22.3.tgz"
+  "version" "7.22.3"
   dependencies:
     "regenerator-runtime" "^0.13.11"
 
@@ -8214,6 +8207,13 @@
   "integrity" "sha512-jniCW/Mt4gPey46eK9or5aguHf8DSbSZa7fUzzRxpnnmO3MpMXoDj8AKjfoKSR24PXK3Xz1prjAg8OEP7YXRDQ=="
   "resolved" "https://registry.npmjs.org/rete-connection-plugin/-/rete-connection-plugin-2.0.0-beta.16.tgz"
   "version" "2.0.0-beta.16"
+  dependencies:
+    "@babel/runtime" "^7.21.0"
+
+"rete-connection-reroute-plugin@^2.0.0-beta.8":
+  "integrity" "sha512-8mWnR5hjylu8lVdIQpD8zSi2G8Za21lOi7ZYyLFg2Y3HrjuyXjP9tXZs2bEiUvlWD3mdAaFPt/mH7yC2N1IMvQ=="
+  "resolved" "https://registry.npmjs.org/rete-connection-reroute-plugin/-/rete-connection-reroute-plugin-2.0.0-beta.8.tgz"
+  "version" "2.0.0-beta.8"
   dependencies:
     "@babel/runtime" "^7.21.0"
 
