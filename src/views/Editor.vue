@@ -2,6 +2,8 @@
     <div>
         <h3 class="mb-4">This is an editor</h3>
         <b-row class="mb-2 justify-content-md-center">
+            <b-button variant="outline-primary" @click="addNodes(2, 5)" class="mr-2">Add 10 nodes</b-button>
+            <b-button variant="outline-primary" @click="addNodes(4, 5)" class="mr-2">Add 20 nodes</b-button>
             <b-button variant="outline-primary" @click="addNodes(10, 5)" class="mr-2">Add 150 nodes</b-button>
             <b-button variant="outline-primary" @click="addNodes(10, 10)" class="mr-2">Add 300 nodes</b-button>
             <b-button variant="outline-primary" @click="addNodes(20, 10)" class="mr-2">Add 600 nodes</b-button>
@@ -17,7 +19,7 @@
 import "@babel/polyfill";
 
 import { ClassicPreset, NodeEditor } from "rete";
-import { VueRenderPlugin, Presets as VuePresets } from "rete-vue-render-plugin/vue2";
+import { VuePlugin, Presets as VuePresets } from "rete-vue-plugin/vue2";
 import { AreaExtensions, AreaPlugin } from "rete-area-plugin"
 import { ConnectionPlugin, Presets as ConnectionPresets } from "rete-connection-plugin"
 import { DataflowEngine } from "rete-engine"
@@ -56,7 +58,7 @@ export default {
             // this.editor = new Rete.NodeEditor('demo@0.1.0', container);
 
             // this.editor.use(ConnectionPlugin)
-            // this.editor.use(VueRenderPlugin)
+            // this.editor.use(VuePlugin)
             // this.editor.use(AreaPlugin);
 
             // this.engine = new Rete.Engine('demo@0.1.0');
@@ -73,7 +75,7 @@ export default {
             this.area = new AreaPlugin(document.querySelector('.rete'));
             // const area = this.area
             const connection = new ConnectionPlugin();
-            const vueRender = new VueRenderPlugin();
+            const vueRender = new VuePlugin();
             const minimap = new MinimapPlugin();
             const reroutePlugin = new ReroutePlugin();
 
